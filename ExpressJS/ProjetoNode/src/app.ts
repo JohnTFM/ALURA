@@ -1,5 +1,6 @@
 import express from 'express';
 import routes from './view/LocatarioRoutes';
+
 const app = express();
 
 app.use(express.json(),

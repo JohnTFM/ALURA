@@ -1,20 +1,25 @@
 import express, {Router, Request, Response} from "express";
 import {Cadastro} from "../model/entities/Cadastro";
 import {Residencia} from "../model/entities/Residencia";
+import {LocatarioController} from "../controller/LocatarioController";
 
 const rotas: Router= Router();
 
-rotas.get("/locatario/integrar",(req: Request,res: Response)=> {
-    try {
-        const id: Number = req.body.id;
-        const residencia: Residencia = new Residencia("Desc");
-        residencia.valor = id;
-        console.log(id);
-        //logica com o id
-        res.sendStatus(200);
-    }catch (err){
-        res.status(500).send("Erro no servidor");
+rotas.post("/locatario",(req: Request,res: Response)=> {
+    let nomes: string[] = [];
+    req.body.nomes.forEach((nome: string)=>{
+        nomes.push(nome);
+    })
+    LocatarioController.inserirLocatarios(nomes)
+    res.status(200).send();
 
-    }
 });
+
+rotas.get("/locatario", async (req, res) => {
+        const rows = await LocatarioController.consultar();
+        console.log(rows);
+      res.json(rows);
+
+})
+
 export default rotas;

@@ -1,10 +1,15 @@
 import express from "express";
-import {Locatario} from "../model/interfaces/Locatario";
-import {Cadastro} from "../model/entities/Cadastro";
-import {inserirLocatario, consultarLocatarios} from "../model/repository/Repository";
+import {Locatario} from "../models_from_mvc/interfaces/Locatario";
+import {Cadastro} from "../models_from_mvc/entities/Cadastro";
+import {
+    inserirLocatario,
+    consultarLocatariosConnection,
+    atualizarLocatario,
+    deletarLocatario
+} from "../repository/Repository";
 import {RowDataPacket} from "mysql2";
 export class LocatarioController{
-    static inserirLocatarios(nomes: string[]): void{
+    static inserir(nomes: string[]): void{ /// post create
         let locatarios: Locatario[] = [];
 
         nomes.forEach(nome=>{
@@ -14,11 +19,20 @@ export class LocatarioController{
     }
 
 
-    static async consultar() {
-    const [rows,fields] = await consultarLocatarios();
-
-
+    static async consultar() { ///get read
+    const [rows,fields] = await consultarLocatariosConnection();
 
         return rows ;
     }
+
+    static async atualizar(id: number, nome: string){/// update
+
+        await atualizarLocatario(id,nome);
+
+    }
+
+    static async deletar(id: number){ ///deletar
+        await deletarLocatario(id);
+    }
+
 }

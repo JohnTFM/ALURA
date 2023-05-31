@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Sexoanal69",
-    "database": "unirent",
-    "host": "joaodbmysql.cmtemn0pxfik.us-east-1.rds.amazonaws.com",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "test": {
